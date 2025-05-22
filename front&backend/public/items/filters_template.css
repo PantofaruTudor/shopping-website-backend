@@ -1,0 +1,190 @@
+.filter-grid{
+    width: 15%;
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    position: relative;
+    
+    
+}
+
+.filter-name{
+
+    padding: 5px 10px 5px 10px;
+    font-size: 1.2rem;
+    font-weight: 350;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.filter-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    padding: 10px;
+    padding-left: 0;
+    margin-left: 10px;
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.filter-wrapper label{
+    display: flex;
+    gap: 10px;
+    padding-left: 5px;
+    font-weight: 450;
+    cursor: pointer;
+}
+
+.filter-wrapper input[type="checkbox"] {
+    accent-color: #313f4e18; /* Change checkbox color (modern browsers) */
+    cursor: pointer; /* Pointer cursor for better UX */
+}
+@media only screen and (max-width:1000px)
+{
+    .filter-name{
+        font-size: 1.3vw
+    }
+    .filter-grid{
+        display: none;
+    }
+}
+
+#filter-price{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap:10px;
+    cursor:auto;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#filter-price::after {
+    content: none; /* Remove the arrow */
+}
+.price-input{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap:50px;
+    margin-top: 10px;
+
+}
+
+.price-input input{
+    width: 100%;
+    border: none;
+    background-color: lightgrey;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.price-input .min-price::-webkit-inner-spin-button,
+.price-input .min-price::-webkit-outer-spin-button,
+.price-input .max-price::-webkit-inner-spin-button,
+.price-input .max-price::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Removes the buttons in WebKit browsers */
+    margin: 0; /* Ensures no additional space is taken */
+}
+
+
+.range-input{
+    width: 100%;
+    display: grid;
+    position: relative;
+    z-index: 5;
+}
+.range-input input{
+    grid-row: 2;
+    grid-column: 1;
+    pointer-events: none;
+    appearance: none;
+    background: transparent;
+
+}
+
+
+.price-input.dragging{
+    cursor: ew-resize;
+    background: orange;
+}
+
+.range-input input::-webkit-slider-thumb{
+    pointer-events: auto;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 30%;
+}
+
+
+
+.slider{
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: lightgrey;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index:-1;
+}
+
+.progress{
+    position: absolute;
+    height: 100%;
+    background-color: rgba(209, 156, 156, 0.733);
+    cursor: ew-resize;
+}
+
+.filter-name::after {
+
+    content: '→'; /* The arrow symbol */
+    rotate: 90deg;
+    position: absolute;
+    /* top: 50%;  */
+    right: 0;
+    transform: translateY(-50%); /* Center the arrow vertically */
+    font-size: 1rem; /* Arrow size */
+    color: rgb(0, 0, 0); /* Arrow color */
+    opacity: 0; /* Initially invisible */
+    font-weight: 500;
+    transition: opacity 0.4s ease; /* Smooth appearance and sliding */
+}
+
+.filter-name:hover::after {
+    opacity: 1; /* Make the arrow visible */
+}
+
+
+
+.sortBy-select{
+    border: 1.5px solid rgba(0, 0, 0, 0.329);
+    border-radius: 10px;
+    margin: 0 10px 0 5px;
+    font-size: 1rem;
+    padding: 10px;
+    max-width: 75%;
+    font-weight: 450;
+}
+

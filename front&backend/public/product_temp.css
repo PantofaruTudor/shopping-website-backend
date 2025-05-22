@@ -1,0 +1,115 @@
+.product-item img:hover {
+    transform: scale(1.05); /* Grow the image by 10% */
+}
+.product-item img{
+    transition: transform 0.3s ease; /* Smooth transition effect */
+}
+
+.noutati_button{
+    transition: border-color 0.3s ease, color 0.3s ease;    
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+.noutati_button:hover{
+    border-color: rgb(163, 113, 113);
+    color: rgb(163, 113, 113);
+    cursor: pointer;
+}
+
+.item-favourite-name-box{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.item-favourite-name-box h2{
+    font-size: 1.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.favourite-item{
+    border: none;
+    width: 30px;
+    height: 30px;
+    justify-self: end;
+    background-color: rgba(255, 255, 255, 0.308);
+}
+
+.item-price-favourite-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.item-price-favourite-box .sales-product-grid #full-price{
+    text-decoration:line-through;
+    
+}
+.item-price-favourite-box #sale-price{
+    color: rgb(255, 20, 20);
+    border-radius: 20px;
+    border: 2px solid red;
+    padding: 5px;
+}
+
+
+.item-favourite-name-box .favourite-item{
+    margin-left: auto;
+}
+
+.product-item {
+    width: 100%; 
+    height: auto; 
+    overflow: hidden;
+}
+
+.product-item img{
+    position: relative;
+    object-fit: cover;
+    width:100%;
+    cursor: pointer
+}
+
+
+.product-item p
+{
+    font-weight: 500;
+}
+
+.product-item h2{
+    font-weight: 300;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+    display: inline;
+}
+
+.item-price{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+h2.item-favourite-name-box{
+    display: inline;
+    overflow: hidden;
+}
+
+.favourite-item{
+    width: 20px;
+    height: 20px
+}
+
+
+@media only screen and (max-width:1200px)
+{
+    .items-grid{
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
