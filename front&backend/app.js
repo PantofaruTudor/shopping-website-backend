@@ -10,6 +10,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log('ENV:', process.env)
+
 app.get('/', (req,res)=>{
     //testez mainMenu
     res.sendFile(path.join(__dirname,'public/Main','index.html'), (err)=>{
@@ -84,7 +86,7 @@ const start = async() => {
         const itemsConnection = connectDB(process.env.MONGO_URI);
 
 
-        app.listen(port, () => console.log(`Server is listening to port ${port}`));
+        app.listen(port, () => console.log(`Server is listening to port  {port}`));
     } catch (error) {
         console.error('Error starting the application:', error.message);
     }
