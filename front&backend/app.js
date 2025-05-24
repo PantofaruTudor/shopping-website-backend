@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
-console.log('ENV:', process.env.DEBUG_URL)
+
 
 app.get('/', (req,res)=>{
     //testez mainMenu
