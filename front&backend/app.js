@@ -40,21 +40,14 @@ app.get('/noutati', (req, res) => {
 });
 
 
-//// OLD ROUTE TO THE FRONTEND OF THE LOG-IN
-
-// app.use(express.static(path.join(__dirname, '../react-auth/build')));
-// app.get('/log-in', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../react-auth/build', 'index.html'), (err) => {
-//         if (err) {
-//             console.error('Error sending file:', err);
-//             res.status(500).send('Failed to send file');
-//         } else {
-//             console.log('File sent successfully for the mata page');
-//         }
-//     });
-//     const user_data = require('./public/user_AUTH/user_AUTH.js')
-//     user_data()
-// });
+app.get('/log-in*', (req, res) => {
+    
+    const frontendUrl = 'https://shopping-website-frontend.netlify.app' + req.originalUrl
+    console.log(req.originalUrl)
+    res.redirect(frontendUrl)
+    // const user_data = require('./public/user_AUTH/user_AUTH.js')
+    // user_data()
+});
 
 
 
