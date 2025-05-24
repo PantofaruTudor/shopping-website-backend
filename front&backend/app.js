@@ -42,7 +42,7 @@ app.get('/noutati', (req, res) => {
 
 app.get('/log-in', (req, res) => {
     
-    const frontendUrl = 'https://shopping-website-frontend.netlify.app' + req.originalUrl
+    const frontendUrl = 'https://shopping-website-frontend.netlify.app' 
     console.log(req.originalUrl)
     res.redirect(frontendUrl)
     // const user_data = require('./public/user_AUTH/user_AUTH.js')
