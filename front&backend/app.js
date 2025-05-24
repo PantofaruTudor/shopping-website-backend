@@ -40,7 +40,7 @@ app.get('/noutati', (req, res) => {
 });
 
 
-app.get('/log-in*', (req, res) => {
+app.get('/log-in', (req, res) => {
     
     const frontendUrl = 'https://shopping-website-frontend.netlify.app' + req.originalUrl
     console.log(req.originalUrl)
