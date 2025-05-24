@@ -6,27 +6,10 @@ const cors = require('cors')
 /////////////////////////////////////
 const notFound = require('./middleware/route-not-found')
 
-
-
-const originalGet = app.get.bind(app);
-app.get = (path, ...args) => {
-  console.log('Registering GET route:', path);
-  return originalGet(path, ...args);
-};
-const originalUse = app.use.bind(app);
-app.use = (path, ...args) => {
-  if (typeof path === 'string') {
-    console.log('Registering USE route:', path);
-  }
-  return originalUse(path, ...args);
-};
-// ...existing code...
-
-
-
-
-
-app.use(cors())
+app.use(cors({
+    origin: 'https://shopping-website-frontend.netlify.app',
+    credentials: true
+}))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -56,19 +39,24 @@ app.get('/noutati', (req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, '../react-auth/build')));
-app.get('/log-in', (req, res) => {
-    res.sendFile(path.join(__dirname, '../react-auth/build', 'index.html'), (err) => {
-        if (err) {
-            console.error('Error sending file:', err);
-            res.status(500).send('Failed to send file');
-        } else {
-            console.log('File sent successfully for the mata page');
-        }
-    });
-    const user_data = require('./public/user_AUTH/user_AUTH.js')
-    user_data()
-});
+
+//// OLD ROUTE TO THE FRONTEND OF THE LOG-IN
+
+// app.use(express.static(path.join(__dirname, '../react-auth/build')));
+// app.get('/log-in', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../react-auth/build', 'index.html'), (err) => {
+//         if (err) {
+//             console.error('Error sending file:', err);
+//             res.status(500).send('Failed to send file');
+//         } else {
+//             console.log('File sent successfully for the mata page');
+//         }
+//     });
+//     const user_data = require('./public/user_AUTH/user_AUTH.js')
+//     user_data()
+// });
+
+
 
 
 const authRoutes = require('./routes/auth_routes');
