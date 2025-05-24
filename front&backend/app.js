@@ -57,7 +57,7 @@ app.get('/noutati', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, '../react-auth/build')));
-app.get('/log-in*', (req, res) => {
+app.get('/log-in', (req, res) => {
     res.sendFile(path.join(__dirname, '../react-auth/build', 'index.html'), (err) => {
         if (err) {
             console.error('Error sending file:', err);
