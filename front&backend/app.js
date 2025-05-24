@@ -6,6 +6,26 @@ const cors = require('cors')
 /////////////////////////////////////
 const notFound = require('./middleware/route-not-found')
 
+
+
+const originalGet = app.get.bind(app);
+app.get = (path, ...args) => {
+  console.log('Registering GET route:', path);
+  return originalGet(path, ...args);
+};
+const originalUse = app.use.bind(app);
+app.use = (path, ...args) => {
+  if (typeof path === 'string') {
+    console.log('Registering USE route:', path);
+  }
+  return originalUse(path, ...args);
+};
+// ...existing code...
+
+
+
+
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
