@@ -9,7 +9,7 @@ const notFound = require('./middleware/route-not-found')
 app.use(cors({
     origin: [
         'https://shopping-website-frontend.netlify.app',
-        'https://localhost:3000'
+        'http://localhost:3000'
     ],
     credentials: true
 }))
