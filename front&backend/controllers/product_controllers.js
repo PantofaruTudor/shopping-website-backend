@@ -22,6 +22,7 @@ const getAllProducts = async (req, res, next) => {
             sortOrder.price = -1; // Sort by price in descending order
         }
 
+        console.log(query)
         let products;
         if (page) {
             const limit = 12; // Set limit to 12 if page is defined

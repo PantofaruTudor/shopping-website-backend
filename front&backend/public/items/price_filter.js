@@ -1,4 +1,4 @@
-export const filter_price = (updateItemsCallback) =>{
+  export const filter_price = (updateItemsCallback) =>{
     
     const slider = document.querySelector(".price-input")
     const minPriceInput = slider.querySelector(".min-price")
