@@ -7,7 +7,11 @@ const register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        await User.deleteMany({})
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).send({ message: 'User already exists' });
+        }
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -75,20 +79,27 @@ const login = async (req, res) => {
 
 const requestPoint = async(req,res,next)=>{
     try{
+        // Check if authorization header exists
+        if (!req.headers.authorization) {
+            return res.status(401).json({ error: "No authorization header provided" });
+        }
         
         //   get the token from the authorization header
         console.log("requestPoint middleware triggered");
-        const token = await req.headers.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1];
+        
+        if (!token) {
+            return res.status(401).json({ error: "No token provided" });
+        }
 
         //check if the token matches the supposed origin
         const decodedToken = await jwt.verify(token, "RANDOM-TOKEN");
 
         // retrieve the user details of the logged in user
-        const user = await decodedToken;
-        console.log("Decoded user details:", user)
+        console.log("Decoded user details:", decodedToken)
 
         // pass the user down to the endpoints here
-        req.user = user;
+        req.user = decodedToken;
 
         // pass down functionality to the endpoint
         next();
@@ -96,7 +107,8 @@ const requestPoint = async(req,res,next)=>{
     }
     catch(error)
     {
-        res.status(401).json({error: new Error("Invalid request!")})
+        console.error("Auth middleware error:", error.message);
+        res.status(401).json({error: "Invalid or expired token"})
     }
 }
 

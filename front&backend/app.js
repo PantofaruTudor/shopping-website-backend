@@ -9,16 +9,17 @@ const notFound = require('./middleware/route-not-found')
 app.use(cors({
     origin: [
         'https://shopping-website-frontend.netlify.app',
-        'http://localhost:3000'
+        'http://localhost:3000',
+        'http://localhost:8080'
     ],
     credentials: true
 }))
 app.use(express.json())
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-app.get('/', (req,res)=>{
+app.get('/home', (req,res)=>{
     //testez mainMenu
     res.sendFile(path.join(__dirname,'public/Main','index.html'), (err)=>{
         if (err) {
@@ -48,11 +49,11 @@ app.get('/log-in', (req, res) => {
     const frontendUrl = 'https://shopping-website-frontend.netlify.app' 
     console.log(req.originalUrl)
     res.redirect(frontendUrl)
-    // const user_data = require('./public/user_AUTH/user_AUTH.js')
-    // user_data()
+    const user_data = require('./public/user_AUTH/user_AUTH.js')
+    user_data()
 });
 
-
+//NU ESTE NEVOIE DE ASTEA IN NGINX
 
 
 const authRoutes = require('./routes/auth_routes');
@@ -62,7 +63,7 @@ app.use('/api/v1/products', productsRouter);
 
 
 
-const {requestPoint} = require('../front&backend/controllers/auth_controller.js')
+const {requestPoint} = require('./controllers/auth_controller.js')
 app.get("/free-endpoint", (req, res) => {
     res.json({ message: "You are free to access me anytime" });
   });
@@ -90,7 +91,8 @@ const start = async() => {
         const itemsConnection = connectDB(process.env.MONGO_URI);
 
 
-        app.listen(port, () => console.log(`Server is listening to port  ${port}`));
+        app.use(notFound)
+        app.listen(port, () => console.log(`Server is listening to port ${port}`));
     } catch (error) {
         console.error('Error starting the application:', error.message);
     }
@@ -98,6 +100,3 @@ const start = async() => {
 
 
 start()
-
-
-app.use(notFound)
