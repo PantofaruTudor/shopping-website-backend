@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.get('/', (req,res)=>{
+app.get('/home', (req,res)=>{
     //testez mainMenu
     res.sendFile(path.join(__dirname,'public/Main','index.html'), (err)=>{
         if (err) {
@@ -57,8 +57,10 @@ app.get('/log-in', (req, res) => {
 
 const authRoutes = require('./routes/auth_routes');
 const productsRouter = require('./routes/prod_routes');
+const wishlistRoutes = require('./routes/wishlist_routes');
 app.use('/auth', authRoutes)
 app.use('/api/v1/products', productsRouter);
+app.use('/api/wishlist', wishlistRoutes);
 
 
 
