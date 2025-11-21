@@ -7,10 +7,14 @@ const register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check if user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).send({ message: 'User already exists' });
+        // Check if user already exists FIRST (before hashing)
+        const existingUser = await User.findOne({email})
+        
+        if(existingUser){
+            return res.status(409).json({ 
+                message: "Email already registered",
+                error: "This email is already in use. Please use a different email or login."
+            })
         }
 
         // Hash the password
