@@ -4,101 +4,101 @@ const mongoose = require('mongoose');
 const { User } = require('../models/schema')(connectDB(process.env.MONGO_URI_USER));
 const { Product } = require('../models/schema')(connectDB(process.env.MONGO_URI));
 
-const addToWishlist = async (req, res) => {
-    try {
-        console.log('=== ADD TO WISHLIST REQUEST ===');
-        console.log('Request body:', req.body);
-        console.log('User:', req.user);
+
+//DOAR PENTRU A TESTA CATEVA ROUTES=================================================
+
+// const addToWishlist = async (req, res) => {
+//     try {
+//         console.log('=== ADD TO WISHLIST REQUEST ===');
+//         console.log('Request body:', req.body);
+//         console.log('User:', req.user);
         
-        const productId = req.body.productID;
-        const userId = req.user.userId; 
+//         const productId = req.body.productID;
+//         const userId = req.user.userId; 
         
-        if (!productId) {
-            console.log('ERROR: Product ID is missing');
-            return res.status(400).json({ message: 'Product ID is required' });
-        }
+//         if (!productId) {
+//             console.log('ERROR: Product ID is missing');
+//             return res.status(400).json({ message: 'Product ID is required' });
+//         }
         
-        console.log('Product ID received:', productId);
+//         console.log('Product ID received:', productId);
         
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
-            console.log('ERROR: Invalid product ID format');
-            return res.status(400).json({ message: 'Invalid product ID format' });
-        }
+//         if (!mongoose.Types.ObjectId.isValid(productId)) {
+//             console.log('ERROR: Invalid product ID format');
+//             return res.status(400).json({ message: 'Invalid product ID format' });
+//         }
         
-        const user = await User.findById(userId);
+//         const user = await User.findById(userId);
         
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
         
-        // console.log('User found:', user.email);
-        // console.log('Current wishlist:', user.wishlist);
+
+//         if (user.wishlist.some(id => id.toString() === productId)) {
+//             console.log('ERROR: Product already in wishlist');
+//             return res.status(400).json({ message: 'Product already in wishlist' });
+//         }
         
-        // Check if already in wishlist
-        if (user.wishlist.some(id => id.toString() === productId)) {
-            console.log('ERROR: Product already in wishlist');
-            return res.status(400).json({ message: 'Product already in wishlist' });
-        }
+
+//         console.log('Checking if product exists in database...');
+//         const productExists = await Product.findById(productId);
+//         if (!productExists) {
+//             console.log('ERROR: Product not found in database');
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
         
-        // Verify product exists in products database
-        console.log('Checking if product exists in database...');
-        const productExists = await Product.findById(productId);
-        if (!productExists) {
-            console.log('ERROR: Product not found in database');
-            return res.status(404).json({ message: 'Product not found' });
-        }
+//         console.log('Product found:', productExists.name);
         
-        console.log('Product found:', productExists.name);
+//         user.wishlist.push(productId);
+//         await user.save();
         
-        user.wishlist.push(productId);
-        await user.save();
+//         console.log('SUCCESS: Product added to wishlist');
+//         console.log('Updated wishlist:', user.wishlist);
         
-        console.log('SUCCESS: Product added to wishlist');
-        console.log('Updated wishlist:', user.wishlist);
-        
-        res.status(200).json({ 
-            message: 'Added to wishlist', 
-            wishlist: user.wishlist 
-        });
-    } catch (error) {
-        console.error('CATCH ERROR adding to wishlist:', error.message);
-        console.error('Full error:', error);
-        res.status(500).json({ error: error.message });
-    }
-};
+//         res.status(200).json({ 
+//             message: 'Added to wishlist', 
+//             wishlist: user.wishlist 
+//         });
+//     } catch (error) {
+//         console.error('CATCH ERROR adding to wishlist:', error.message);
+//         console.error('Full error:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 
 
-const removeFromWishlist = async (req, res) => {
-    console.log('=== REMOVE FROM WISHLIST REQUEST ===');
-    console.log('Request params:', req.params);
+// const removeFromWishlist = async (req, res) => {
+//     console.log('=== REMOVE FROM WISHLIST REQUEST ===');
+//     console.log('Request params:', req.params);
     
-    try {
-        const { productId } = req.params;
-        const userId = req.user.userId;
+//     try {
+//         const { productId } = req.params;
+//         const userId = req.user.userId;
         
-        console.log('Extracted productId:', productId);
+//         console.log('Extracted productId:', productId);
         
-        const user = await User.findById(userId);
-        console.log('User found:', user ? user.email : 'NOT FOUND');
+//         const user = await User.findById(userId);
+//         console.log('User found:', user ? user.email : 'NOT FOUND');
         
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
         
-        user.wishlist = user.wishlist.filter(id => id.toString() !== productId);
-        await user.save();
-        console.log('SUCCESS: Product removed from wishlist');
+//         user.wishlist = user.wishlist.filter(id => id.toString() !== productId);
+//         await user.save();
+//         console.log('SUCCESS: Product removed from wishlist');
         
-        res.status(200).json({ 
-            message: 'Removed from wishlist', 
-            wishlist: user.wishlist 
-        });
-    } catch (error) {
-        console.error('CATCH ERROR removing from wishlist:', error.message);
-        console.error('Full error:', error);
-        res.status(500).json({ error: error.message });
-    }
-};
+//         res.status(200).json({ 
+//             message: 'Removed from wishlist', 
+//             wishlist: user.wishlist 
+//         });
+//     } catch (error) {
+//         console.error('CATCH ERROR removing from wishlist:', error.message);
+//         console.error('Full error:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 
 // Get user's wishlist with full product details
 const getWishlist = async (req, res) => {
@@ -147,4 +147,4 @@ const getWishlist = async (req, res) => {
     }
 };
 
-module.exports = { addToWishlist, removeFromWishlist, getWishlist };
+module.exports = { getWishlist };
