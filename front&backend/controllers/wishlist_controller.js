@@ -147,4 +147,4 @@ const getWishlist = async (req, res) => {
     }
 };
 
-module.exports = {  getWishlist };
+module.exports = { getWishlist };
