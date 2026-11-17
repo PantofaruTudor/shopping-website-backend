@@ -77,7 +77,7 @@ app.get("/auth-endpoint", requestPoint, (req, res) => {
   });
 
 
-const port = 5000
+const port = process.env.PORT || 5001
 const start = async() => {
     try {
 
